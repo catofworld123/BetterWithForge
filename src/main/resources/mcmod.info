@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "bwf",
+    "name": "BetterWithForge",
+    "description": "Port of Better Than Wolves CE",
+    "version": "indev-0.0.1",
+    "mcversion": "1.7.10",
+    "url": "uh not now",
+    "updateUrl": "",
+    "authorList": [
+      "cat_of_world"
+    ],
+    "credits": "§6(special) BeetoGuy, §7FlowerChild, §6Roadhog360",
+    "logoFile": "assets/betterwithpatches/icon.png",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
