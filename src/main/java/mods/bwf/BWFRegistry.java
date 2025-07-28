@@ -14,9 +14,6 @@ public class BWFRegistry {
        // item.setCreativeTab(bwfTab);
         GameRegistry.registerItem(item, id);
         return item;
-
-
-
     }
 
 
