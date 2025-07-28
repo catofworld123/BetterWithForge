@@ -1,6 +1,8 @@
 package mods.bwf.proxy;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import mods.bwf.client.CampfireRenderer;
+import mods.bwf.client.RenderInfernalEnchanterBlock;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
@@ -24,6 +26,10 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init() {
         super.init();
+        renderBlockCampfire = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(renderBlockCampfire, new mods.bwf.client.RenderBlockCampfire());
+        renderInfernalEnchanter = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(renderInfernalEnchanter, new RenderInfernalEnchanterBlock());
 
 
 

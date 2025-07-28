@@ -7,7 +7,10 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import mods.bwf.crafting.RecipeManager;
+import mods.bwf.network.GuiHandler;
 import mods.bwf.proxy.CommonProxy;
+import mods.bwf.util.BWFRenderMapper;
 
 import static mods.bwf.BWFConstants.MODID;
 import static mods.bwf.BWFConstants.MODNAME;
@@ -15,6 +18,7 @@ import static mods.bwf.BWFConstants.MODNAME;
 
 @Mod(modid = MODID, name = MODNAME, version = "${version}")
 public class BetterWithForge {
+    public static CommonProxy proxy;
 
 
 
@@ -35,6 +39,8 @@ public class BetterWithForge {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         PROXY.preInit();
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
     }
 
     @Mod.EventHandler
@@ -42,6 +48,7 @@ public class BetterWithForge {
 
         PROXY.init();
         BWFRegistry.init();
+        RecipeManager.addAllModRecipes();
 
     }
 
@@ -50,6 +57,7 @@ public class BetterWithForge {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
         PROXY.postInit();
+        BWFRenderMapper.initTileEntityRenderers();
     }
 
     @Mod.EventHandler
