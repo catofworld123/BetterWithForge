@@ -1,6 +1,7 @@
 package mods.bwf;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.bwf.block.AshGroundCoverBlock;
 import mods.bwf.block.CampfireBlock;
 import mods.bwf.block.InfernalEnchanterBlock;
 import mods.bwf.block.tile.CampfireTileEntity;
@@ -10,6 +11,9 @@ import mods.bwf.item.ItemShaft;
 import mods.bwf.item.tool.ItemPointyStick;
 import mods.bwf.management.BWFCreativeTab;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLogic;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -17,12 +21,15 @@ import net.minecraft.item.ItemBlock;
 public class BWFRegistry {
     public static final CreativeTabs bwpTab = new BWFCreativeTab();
 
+    public static final Material ashMaterial = new MaterialLogic(MapColor.stoneColor).setReplaceable().setTranslucent().setRequiresTool().setNoPushMobility();
+
     public static Item material, bark, itemShaft, itemPointyStick, arcaneScroll;
     public static CampfireBlock unlitCampfire;
     public static CampfireBlock smallCampfire;
     public static CampfireBlock mediumCampfire;
     public static CampfireBlock largeCampfire;
     public static Block infernalEnchanter;
+    public static Block ashCoverBlock;
     public enum ENUM_IDS
     {
         Nothing(), InfernalEnchanter(),
@@ -36,7 +43,7 @@ public class BWFRegistry {
         mediumCampfire = (CampfireBlock)GameRegistry.registerBlock(new CampfireBlock( 2).setLightLevel(0.5F), ItemBlock.class, "Campfirewithmediumfire");
         largeCampfire = (CampfireBlock)GameRegistry.registerBlock(new CampfireBlock( 3).setLightLevel(0.875F), ItemBlock.class, "Campfirewithbigfire");
         GameRegistry.registerTileEntity(CampfireTileEntity.class, "bwf.fcBlockCampfire");
-    //    ashCoverBlock = (AshGroundCoverBlock)GameRegistry.registerBlock(new AshGroundCoverBlock(), ItemBlock.class,"fcBlockAshGroundCover");
+        ashCoverBlock = (AshGroundCoverBlock)GameRegistry.registerBlock(new AshGroundCoverBlock(), ItemBlock.class,"fcBlockAshGroundCover");
 
 
 
