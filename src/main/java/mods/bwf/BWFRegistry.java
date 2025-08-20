@@ -21,7 +21,9 @@ import net.minecraft.item.ItemBlock;
 public class BWFRegistry {
     public static final CreativeTabs bwpTab = new BWFCreativeTab();
 
+    public static final Material logMaterial = (new Material(MapColor.woodColor)).setBurning().setRequiresTool().setMobsCantSpawnOn().setDoesNotBreakSaw();
     public static final Material ashMaterial = new MaterialLogic(MapColor.stoneColor).setReplaceable().setTranslucent().setRequiresTool().setNoPushMobility();
+
 
     public static Item material, bark, itemShaft, itemPointyStick, arcaneScroll;
     public static CampfireBlock unlitCampfire;

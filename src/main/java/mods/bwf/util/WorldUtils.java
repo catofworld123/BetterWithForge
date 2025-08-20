@@ -4,6 +4,7 @@ import mods.bwf.management.BTWBlockadd;
 import net.minecraft.block.Block;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.Packet;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -134,6 +135,56 @@ public class WorldUtils {
         }
 
         return iFacing;
+    }
+    static public boolean doesBlockHaveSmallCenterHardpointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing, boolean bIgnoreTransparency)
+    {
+        Block block = blockAccess.getBlock( i, j, k );
+
+        if ( block != null )
+        {
+            return block.isBlockSolid( blockAccess, i, j, k, iFacing );
+        }
+
+        return false;
+    }
+
+    static public boolean doesBlockHaveSmallCenterHardpointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing)
+    {
+        return doesBlockHaveSmallCenterHardpointToFacing(blockAccess, i, j, k, iFacing, false);
+    }
+
+    static public boolean doesBlockHaveCenterHardpointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing, boolean bIgnoreTransparency)
+    {
+        Block block = blockAccess.getBlock( i, j, k );
+
+        if ( block != null )
+        {
+            return block.isBlockSolid( blockAccess, i, j, k, iFacing);
+        }
+
+        return false;
+    }
+
+    static public boolean doesBlockHaveCenterHardpointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing)
+    {
+        return doesBlockHaveCenterHardpointToFacing(blockAccess, i, j, k, iFacing, false);
+    }
+
+    static public boolean doesBlockHaveLargeCenterHardpointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing, boolean bIgnoreTransparency)
+    {
+        Block block = blockAccess.getBlock( i, j, k );
+
+        if ( block != null )
+        {
+            return block.isBlockSolid( blockAccess, i, j, k, iFacing );
+        }
+
+        return false;
+    }
+
+    static public boolean doesBlockHaveLargeCenterHardpointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing)
+    {
+        return doesBlockHaveLargeCenterHardpointToFacing(blockAccess, i, j, k, iFacing, false);
     }
 
 

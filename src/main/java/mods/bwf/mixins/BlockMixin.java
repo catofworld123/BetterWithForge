@@ -212,6 +212,30 @@ public abstract class BlockMixin implements BTWBlockadd {
         dropComponentItemsOnBadBreak(world, i, j, k, iMetadata, 1F);
     }
 
+    @Override
+    public boolean canConvertBlock(ItemStack stack, World world, int i, int j, int k)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean convertBlock(ItemStack stack, World world, int i, int j, int k, int iFromSide)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean getIsProblemToRemove(ItemStack toolStack, IBlockAccess blockAccess, int i, int j, int k)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean getDoesStumpRemoverWorkOnBlock(IBlockAccess blockAccess, int i, int j, int k)
+    {
+        return false;
+    }
+
 
 
 

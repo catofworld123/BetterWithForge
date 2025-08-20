@@ -2,6 +2,7 @@ package mods.bwf.management;
 
 import mods.bwf.util.WorldUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -187,6 +188,45 @@ public interface BTWBlockadd {
         dropComponentItemsOnBadBreak(world, i, j, k, iMetadata, 1F);
     }
 
+    default boolean canConvertBlock(ItemStack stack, World world, int i, int j, int k)
+    {
+        return false;
+    }
+
+    default boolean convertBlock(ItemStack stack, World world, int i, int j, int k, int iFromSide)
+    {
+        return false;
+    }
+
+    default boolean getIsProblemToRemove(ItemStack toolStack, IBlockAccess blockAccess, int i, int j, int k)
+    {
+        return false;
+    }
+    default boolean getDoesStumpRemoverWorkOnBlock(IBlockAccess blockAccess, int i, int j, int k)
+    {
+        return false;
+    }
+
+    default ItemStack getStackRetrievedByBlockDispenser(World world, int i, int j, int k)
+    {
+        Block block = world.getBlock( i, j, k);
+        int iMetadata = world.getBlockMetadata( i, j, k );
+
+        if ( block.canSilkHarvest(world,null,i,j,k, iMetadata ) )
+        {
+            return block.createStackedBlock( iMetadata );
+        }
+
+        Item iIdDropped = block.getItemDropped( iMetadata, world.rand, 0 );
+
+        if ( iIdDropped != null )
+        {
+            return new ItemStack( iIdDropped, 1, block.damageDropped( iMetadata ) );
+        }
+
+        return null;
+    }
+
+
 
 }
-
