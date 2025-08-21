@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(Block.class)
 public abstract class BlockMixin implements BTWBlockadd {
     private boolean shovelsEffectiveOn = false;
+    private boolean chiselsEffectiveOn = false;
     @Override
     public boolean isGroundCover(){
         return true;
@@ -234,6 +235,18 @@ public abstract class BlockMixin implements BTWBlockadd {
     public boolean getDoesStumpRemoverWorkOnBlock(IBlockAccess blockAccess, int i, int j, int k)
     {
         return false;
+    }
+
+    @Override
+    public boolean arechiselseffectiveon()
+    {
+        return chiselsEffectiveOn;
+    }
+
+    @Override
+    public boolean arechiselseffectiveon(World world, int i, int j, int k)
+    {
+        return arechiselseffectiveon();
     }
 
 

@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import mods.bwf.crafting.RecipeManager;
+import mods.bwf.management.MaterialBinder;
 import mods.bwf.network.GuiHandler;
 import mods.bwf.proxy.CommonProxy;
 import mods.bwf.util.BWFRenderMapper;

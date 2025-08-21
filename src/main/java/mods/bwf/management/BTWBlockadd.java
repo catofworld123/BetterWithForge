@@ -226,6 +226,15 @@ public interface BTWBlockadd {
 
         return null;
     }
+    default boolean arechiselseffectiveon()
+    {
+        return false;
+    }
+
+    default boolean arechiselseffectiveon(World world, int i, int j, int k)
+    {
+        return arechiselseffectiveon();
+    }
 
 
 

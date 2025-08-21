@@ -6,7 +6,8 @@
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BlockMixin"
+    "BlockMixin",
+    "MaterialMixin"
   ],
   "client": [
   ],

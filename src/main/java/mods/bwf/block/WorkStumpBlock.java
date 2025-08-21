@@ -1,11 +1,16 @@
 package mods.bwf.block;
 
+import mods.bwf.BWFConstants;
+import mods.bwf.BWFRegistry;
 import mods.bwf.management.BTWBlockadd;
 import mods.bwf.util.BlockUtil;
 import mods.bwf.util.ItemUtils;
 import mods.bwf.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -17,15 +22,16 @@ import net.minecraft.world.World;
 
 public class WorkStumpBlock extends Block implements BTWBlockadd
 {
-    public WorkStumpBlock(int iBlockID)
+    public WorkStumpBlock()
     {
-        super( BTWBlocks.logMaterial);
+        super( BWFRegistry.logMaterial);
 
         setHardness( 1.25F ); // log hardness
 
 
         // setChiselsEffectiveOn();
-        setFireProperties(Flammability.LOGS);
+
+       // setFireProperties(Flammability.LOGS);
 
 
         setBlockName( "fcBlockWorkStump" );
@@ -42,13 +48,14 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     @Override
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int iFacing, float fClickX, float fClickY, float fClickZ )
     {
+        player.openGui(BWFConstants.MODID,BWFRegistry.ENUM_IDS.Workstump.ordinal(),world, i,j,k);
         // prevent access if solid block above
 
         if ( !world.isRemote && !WorldUtils.doesBlockHaveLargeCenterHardpointToFacing(world, i, j + 1, k, 0) ) {
             int metadata = world.getBlockMetadata(i, j, k);
 
             if ((isFinishedWorkStump(metadata))) {
-                player.displayGUIWorkbench(i, j, k);
+                player.openGui(BWFConstants.MODID,BWFRegistry.ENUM_IDS.Workstump.ordinal(),world, i,j,k);
             }
         }
 
@@ -63,7 +70,7 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     public boolean dropComponentItemsOnBadBreak(World world, int i, int j, int k, int iMetadata, float fChanceOfDrop)
     {
         BlockUtil util = new BlockUtil();
-        util.dropItemsIndividually(world, i, j, k, BTWItems.sawDust, 6, 0, fChanceOfDrop);
+        util.dropItemsIndividually(world, i, j, k, BWFRegistry.sawDust, 6, 0, fChanceOfDrop);
 
         return true;
     }
@@ -73,7 +80,7 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     {
         if ( !world.isRemote )
         {
-            dropBlockAsItem( world, i, j, k, new ItemStack( BTWItems.sawDust, 3, 0 ) );
+            dropBlockAsItem( world, i, j, k, new ItemStack( BWFRegistry.sawDust, 3, 0 ) );
 
             dropBlockAsItem( world, i, j, k, new ItemStack( Blocks.planks, 1, 0 ) );
         }
@@ -89,20 +96,20 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     public boolean convertBlock(ItemStack stack, World world, int i, int j, int k, int iFromSide) {
         int oldMetadata = world.getBlockMetadata(i, j, k);
 
-        Block chewedLogID = BlockLog.chewedLogArray[oldMetadata & 3];
+     //   Block chewedLogID = BlockLog.chewedLogArray[oldMetadata & 3];
 
         if (!isFinishedWorkStump(oldMetadata) && isWorkStumpItemConversionTool(stack, world, i, j, k)) {
-            world.playAuxSFX(BTWEffectManager.SHAFT_RIPPED_OFF_EFFECT_ID, i, j, k, 0);
+          //  world.playAuxSFX(BTWEffectManager.SHAFT_RIPPED_OFF_EFFECT_ID, i, j, k, 0);
             world.setBlockMetadataWithNotify(i, j, k, oldMetadata & 3, 2);
             return true;
         }
 
-        int newMetadata = BTWBlocks.oakChewedLog.setIsStump(0);
+       // int newMetadata = BTWBlocks.oakChewedLog.setIsStump(0);
 
-        world.setBlock(i, j, k, chewedLogID, newMetadata,2);
+      //  world.setBlock(i, j, k, chewedLogID, newMetadata,2);
 
         if (!world.isRemote) {
-            ItemUtils.ejectStackFromBlockTowardsFacing(world, i, j, k, new ItemStack(BTWItems.bark, 1, oldMetadata & 3), iFromSide);
+            ItemUtils.ejectStackFromBlockTowardsFacing(world, i, j, k, new ItemStack(BWFRegistry.bark, 1, oldMetadata & 3), iFromSide);
         }
 
         return true;
@@ -110,12 +117,12 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
 
     public boolean isWorkStumpItemConversionTool(ItemStack stack, World world, int i, int j, int k)
     {
-        if ( stack != null && stack.getItem() instanceof ChiselItem)
-        {
-            int iToolLevel = ((ChiselItem)stack.getItem()).toolMaterial.getHarvestLevel();
-
-            return iToolLevel >= 2;
-        }
+       // if ( stack != null && stack.getItem() instanceof ChiselItem)
+       // {
+       //     int iToolLevel = ((ChiselItem)stack.getItem()).func_150913_i().getHarvestLevel();
+        //
+        //    return iToolLevel >= 2;
+      //  }
 
         return false;
     }
@@ -157,24 +164,24 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     //----------- Client Side Functionality -----------//
 
     public static final String[] sideTextureNames = new String[] {
-        "bwp:oak_work_stump",
-        "bwp:spruce_work_stump",
-        "bwp:birch_work_stump",
-        "bwp:jungle_work_stump"
+        "bwf:oak_work_stump",
+        "bwf:spruce_work_stump",
+        "bwf:birch_work_stump",
+        "bwf:jungle_work_stump"
     };
 
     public static final String[] topTextureNames = new String[] {
-        "bwp:oak_stump_top",
-        "bwp:spruce_stump_top",
-        "bwp:birch_stump_top",
-        "bwp:jungle_stump_top"
+        "bwf:oak_stump_top",
+        "bwf:spruce_stump_top",
+        "bwf:birch_stump_top",
+        "bwf:jungle_stump_top"
     };
 
     public static final String[] topCraftingTextureNames = new String[] {
-        "bwp:oak_work_stump_top",
-        "bwp:spruce_work_stump_top",
-        "bwp:birch_work_stump_top",
-        "bwp:jungle_work_stump_top"
+        "bwf:oak_work_stump_top",
+        "bwf:spruce_work_stump_top",
+        "bwf:birch_work_stump_top",
+        "bwf:jungle_work_stump_top"
     };
 
     private IIcon[] iconSideArray;
