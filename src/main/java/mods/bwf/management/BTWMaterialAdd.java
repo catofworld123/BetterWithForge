@@ -29,6 +29,9 @@ public interface BTWMaterialAdd  {
 
         return ((Material)(Object)this);
     }
+    default Material setDoesNotBreakSaw() {
+        return ((Material)(Object)this);
+    }
 
 
 

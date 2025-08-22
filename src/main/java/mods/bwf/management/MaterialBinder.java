@@ -10,6 +10,7 @@ public class MaterialBinder {
     private static Material createLogMaterial() {
         Material material = new Material(MapColor.woodColor).setBurning().setRequiresTool();
         ((BTWMaterialAdd)material).setMobsCantSpawnOn();
+        ((BTWMaterialAdd)material).setDoesNotBreakSaw();
         return material ;
     }
 }

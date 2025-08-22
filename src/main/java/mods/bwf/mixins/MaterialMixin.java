@@ -18,15 +18,15 @@ public abstract class MaterialMixin implements BTWMaterialAdd {
     {
         if ( iDimension == -1 )
         {
-            return canNetherMobsSpawnOn;
+            return this.canNetherMobsSpawnOn;
         }
 
-        return canMobsSpawnOn;
+        return this.canMobsSpawnOn;
     }
     @Override
     public Material setMobsCantSpawnOn()
     {
-        canMobsSpawnOn = false;
+        this.canMobsSpawnOn = false;
 
         return ((Material)(Object)this);
     }
@@ -34,8 +34,13 @@ public abstract class MaterialMixin implements BTWMaterialAdd {
     @Override
     public Material setNetherMobsCanSpawnOn()
     {
-        canNetherMobsSpawnOn = true;
+        this.canNetherMobsSpawnOn = true;
 
+        return ((Material)(Object)this);
+    }
+    @Override
+    public Material setDoesNotBreakSaw() {
+        this.breaksSaw = false;
         return ((Material)(Object)this);
     }
 
