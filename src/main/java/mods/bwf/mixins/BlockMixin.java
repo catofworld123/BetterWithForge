@@ -1,7 +1,10 @@
 package mods.bwf.mixins;
 
+import mods.bwf.crafting.util.FurnaceBurnTime;
 import mods.bwf.management.BTWBlockadd;
 import mods.bwf.management.BTWMaterialAdd;
+import mods.bwf.util.BlockPos;
+import mods.bwf.util.Flammability;
 import mods.bwf.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,12 +15,26 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(Block.class)
 public abstract class BlockMixin implements BTWBlockadd {
     private boolean shovelsEffectiveOn = false;
     private boolean chiselsEffectiveOn = false;
+    private boolean axesEffectiveOn = false;
+    private int defaultFurnaceBurnTime = 0;
+    private static final int[] rotatedFacingsAroundJClockwise =
+        new int[] { 0, 1, 4, 5, 3, 2 };
+
+    private static final int[] rotatedFacingsAroundJCounterclockwise =
+        new int[] { 0, 1, 5, 4, 2, 3 };
+
+    private static final int[] cycledFacings =
+        new int[] { 4, 0, 1, 5, 3, 2 };
+
+    private static final int[] cycledFacingsReversed =
+        new int[] { 1, 2, 5, 4, 0, 3 };
     @Override
     public boolean isGroundCover(){
         return true;
@@ -248,6 +265,187 @@ public abstract class BlockMixin implements BTWBlockadd {
     {
         return arechiselseffectiveon();
     }
+
+    @Override
+    public Block setAxesEffectiveOn() { return setAxesEffectiveOn(true); }
+
+    @Override
+    public Block setAxesEffectiveOn(boolean bEffective)
+    {
+        axesEffectiveOn = bEffective;
+
+        return ((Block)(Object)this);
+    }
+    @Override
+    public Block setChiselsEffectiveOn() { return setChiselsEffectiveOn(true); }
+
+    @Override
+    public Block setChiselsEffectiveOn(boolean bEffective)
+    {
+        chiselsEffectiveOn = bEffective;
+
+        return ((Block)(Object)this);
+    }
+
+
+    private float buoyancy = -1.0F;
+
+    @Override
+    public Block setBuoyancy(float fBuoyancy)
+    {
+        buoyancy = fBuoyancy;
+
+        return ((Block)(Object)this);
+    }
+    @Override
+    public Block setBuoyant() { return setBuoyancy(1F); }
+    @Override
+    public Block setNonBuoyant() { return setBuoyancy(-1F); }
+    @Override
+    public Block setNeutralBuoyant() { return setBuoyancy(0F); }
+    @Override
+    public float getBuoyancy(int iMetadata)
+    {
+        return buoyancy;
+    }
+
+    @Override
+    public Block setFireProperties(Block block, int iChanceToEncourageFire, int iAbilityToCatchFire)
+    {
+
+        Blocks.fire.setFireInfo(block, iChanceToEncourageFire, iChanceToEncourageFire);
+
+        return ((Block)(Object)this);
+    }
+
+    @Override
+    public Block setFireProperties(Block block, Flammability flammability)
+    {
+        return setFireProperties(block, flammability.chanceToEncourageFire,
+            flammability.abilityToCatchFire);
+    }
+    @Override
+    public boolean shouldPlayStandardConvertSound(World world, int x, int y, int z) {
+        return true;
+    }
+    @Override
+    public int rotateFacingAroundY(int iFacing, boolean bReverse)
+    {
+        if ( bReverse )
+        {
+            return rotatedFacingsAroundJCounterclockwise[iFacing];
+        }
+
+        return rotatedFacingsAroundJClockwise[iFacing];
+    }
+    @Override
+    public int rotateMetadataAroundYAxis(int iMetadata, boolean bReverse)
+    {
+        int iFacing = getFacing(iMetadata);
+
+        int iNewFacing = rotateFacingAroundY(iFacing, bReverse);
+
+        return setFacing(iMetadata, iNewFacing);
+    }
+    @Override
+    public void setFacing(World world, int i, int j, int k, int iFacing)
+    {
+        int iMetadata = world.getBlockMetadata( i, j, k );
+
+        int iNewMetadata = setFacing(iMetadata, iFacing);
+
+        if ( iNewMetadata != iMetadata )
+        {
+            world.setBlockMetadataWithNotify( i, j, k, iNewMetadata,2 );
+        }
+    }
+
+    @Override
+    public int setFacing(int iMetadata, int iFacing)
+    {
+        return iMetadata;
+    }
+
+    @Override
+    public void onDestroyedByFire(World world, int i, int j, int k, int iFireAge, boolean bForcedFireSpread)
+    {
+        boolean trueTag = false;
+        BiomeGenBase biome = world.getBiomeGenForCoords( i, k );
+        if ( world.isRaining() && world.canBlockSeeTheSky( i, j, k ) &&
+            j >= world.getPrecipitationHeight( i, k )  )
+        {
+            trueTag = biome.canSpawnLightningBolt();
+        }
+
+        if ( bForcedFireSpread || ( world.rand.nextInt( iFireAge + 10 ) < 5 &&
+            !trueTag ) )
+        {
+            int iNewFireMetadata = iFireAge + world.rand.nextInt( 5 ) / 4;
+
+            if ( iNewFireMetadata > 15 )
+            {
+                iNewFireMetadata = 15;
+            }
+
+            world.setBlock( i, j, k, Blocks.fire, iNewFireMetadata,2 );
+        }
+        else
+        {
+            world.setBlock( i, j, k, Blocks.air );
+        }
+    }
+    @Override
+    public boolean getCanBlockBeIncinerated(World world, int i, int j, int k)
+    {
+        Block block = world.getBlock(i,j,k);
+        Material blockMaterial = block.getMaterial();
+        return Blocks.fire.canBlockCatchFire( world, i, j, k ) || !blockMaterial.blocksMovement();
+    }
+    @Override
+    public int getFurnaceBurnTime(int iItemDamage)
+    {
+        return defaultFurnaceBurnTime;
+    }
+    @Override
+    public void setFurnaceBurnTime(int iBurnTime)
+    {
+        defaultFurnaceBurnTime = iBurnTime;
+    }
+    @Override
+    public void setFurnaceBurnTime(FurnaceBurnTime burnTime)
+    {
+        setFurnaceBurnTime(burnTime.burnTime);
+    }
+
+
+    @Override
+    public boolean hasLargeCenterHardPointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing, boolean bIgnoreTransparency )
+    {
+        return blockAccess.getBlock( i, j, k ).isNormalCube();
+    }
+    @Override
+    public boolean hasLargeCenterHardPointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing )
+    {
+        return hasLargeCenterHardPointToFacing( blockAccess, i, j, k, iFacing, false );
+    }
+    @Override
+    public boolean hasWaterToSidesOrTop(World world, int i, int j, int k)
+    {
+        for ( int iFacing = 1; iFacing <= 5; iFacing++ )
+        {
+            BlockPos tempPos = new BlockPos( i, j, k, iFacing );
+
+            Block tempBlock = world.getBlock(tempPos.x, tempPos.y, tempPos.z);
+
+            if ( tempBlock != null && tempBlock.getMaterial() == Material.water )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
 
 

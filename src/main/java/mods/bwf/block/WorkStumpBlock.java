@@ -3,7 +3,9 @@ package mods.bwf.block;
 import mods.bwf.BWFConstants;
 import mods.bwf.BWFRegistry;
 import mods.bwf.management.BTWBlockadd;
+import mods.bwf.management.BTWEffectManager;
 import mods.bwf.util.BlockUtil;
+import mods.bwf.util.Flammability;
 import mods.bwf.util.ItemUtils;
 import mods.bwf.util.WorldUtils;
 import net.minecraft.block.Block;
@@ -19,28 +21,36 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorkStumpBlock extends Block implements BTWBlockadd
 {
     public WorkStumpBlock()
     {
         super( BWFRegistry.logMaterial);
-
         setHardness( 1.25F ); // log hardness
-
-
-        // setChiselsEffectiveOn();
-
-       // setFireProperties(Flammability.LOGS);
-
-
+         setChiselsEffectiveOn();
         setBlockName( "fcBlockWorkStump" );
+    }
+
+    private final int Flammability = mods.bwf.util.Flammability.LOGS.abilityToCatchFire;
+    private final int Encouragement = mods.bwf.util.Flammability.LOGS.chanceToEncourageFire;
+
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+    {
+        return Flammability;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+    {
+        return Encouragement;
     }
 
     @Override
     public float getBlockHardness(World world, int i, int j, int k )
     {
-        // doing it this way instead of just setting the hardness in the constructor to replicate behavior of log stumps
 
         return super.getBlockHardness( world, i, j, k ) * 3;
     }
@@ -48,7 +58,7 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     @Override
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int iFacing, float fClickX, float fClickY, float fClickZ )
     {
-        player.openGui(BWFConstants.MODID,BWFRegistry.ENUM_IDS.Workstump.ordinal(),world, i,j,k);
+
         // prevent access if solid block above
 
         if ( !world.isRemote && !WorldUtils.doesBlockHaveLargeCenterHardpointToFacing(world, i, j + 1, k, 0) ) {
@@ -57,6 +67,7 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
             if ((isFinishedWorkStump(metadata))) {
                 player.openGui(BWFConstants.MODID,BWFRegistry.ENUM_IDS.Workstump.ordinal(),world, i,j,k);
             }
+
         }
 
         return true;
@@ -96,17 +107,17 @@ public class WorkStumpBlock extends Block implements BTWBlockadd
     public boolean convertBlock(ItemStack stack, World world, int i, int j, int k, int iFromSide) {
         int oldMetadata = world.getBlockMetadata(i, j, k);
 
-     //   Block chewedLogID = BlockLog.chewedLogArray[oldMetadata & 3];
+       Block chewedLogID = BlockLogCustom.chewedLogArray[oldMetadata & 3];
 
         if (!isFinishedWorkStump(oldMetadata) && isWorkStumpItemConversionTool(stack, world, i, j, k)) {
-          //  world.playAuxSFX(BTWEffectManager.SHAFT_RIPPED_OFF_EFFECT_ID, i, j, k, 0);
+            world.playAuxSFX(BTWEffectManager.SHAFT_RIPPED_OFF_EFFECT_ID, i, j, k, 0);
             world.setBlockMetadataWithNotify(i, j, k, oldMetadata & 3, 2);
             return true;
         }
 
-       // int newMetadata = BTWBlocks.oakChewedLog.setIsStump(0);
+        int newMetadata = 0; // BTWBlocks.oakChewedLog.setIsStump(0);
 
-      //  world.setBlock(i, j, k, chewedLogID, newMetadata,2);
+        world.setBlock(i, j, k, chewedLogID, newMetadata,2);
 
         if (!world.isRemote) {
             ItemUtils.ejectStackFromBlockTowardsFacing(world, i, j, k, new ItemStack(BWFRegistry.bark, 1, oldMetadata & 3), iFromSide);

@@ -17,6 +17,7 @@ public class WorldUtils {
     public static boolean isReplaceableBlock(World world, int i, int j, int k) {
         Block block = world.getBlock(i, j, k);
         return block == null || block.getMaterial().isReplaceable();
+
     }
     static public boolean hasNeighborWithMortarInFullFaceContactToFacing(World world, int i, int j, int k, int iFacing)
     {

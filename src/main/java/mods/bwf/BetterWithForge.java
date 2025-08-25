@@ -8,10 +8,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import mods.bwf.crafting.RecipeManager;
+import mods.bwf.management.BTWSoundManager;
 import mods.bwf.management.MaterialBinder;
 import mods.bwf.network.GuiHandler;
 import mods.bwf.proxy.CommonProxy;
 import mods.bwf.util.BWFRenderMapper;
+import net.minecraft.client.audio.SoundManager;
+import net.minecraft.client.audio.SoundRegistry;
 
 import static mods.bwf.BWFConstants.MODID;
 import static mods.bwf.BWFConstants.MODNAME;
@@ -39,6 +42,7 @@ public class BetterWithForge {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
+
         PROXY.preInit();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
@@ -46,9 +50,10 @@ public class BetterWithForge {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) {
-
-        PROXY.init();
+        SoundRegistry soundManager = new SoundRegistry();
+        BTWSoundManager.registerSounds(soundManager);
         BWFRegistry.init();
+        PROXY.init();
         RecipeManager.addAllModRecipes();
 
     }

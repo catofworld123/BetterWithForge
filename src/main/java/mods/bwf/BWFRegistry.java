@@ -1,22 +1,25 @@
 package mods.bwf;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mods.bwf.block.AshGroundCoverBlock;
-import mods.bwf.block.CampfireBlock;
-import mods.bwf.block.InfernalEnchanterBlock;
-import mods.bwf.block.WorkStumpBlock;
+import mods.bwf.block.*;
 import mods.bwf.block.tile.CampfireTileEntity;
 import mods.bwf.block.tile.InfernalEnchanterTileEntity;
 import mods.bwf.item.ArcaneScrollItem;
 import mods.bwf.item.ItemShaft;
 import mods.bwf.item.tool.ItemPointyStick;
 import mods.bwf.management.BTWMaterialAdd;
+import mods.bwf.management.BTWSoundManager;
 import mods.bwf.management.BWFCreativeTab;
 import mods.bwf.management.MaterialBinder;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.audio.SoundManager;
+import net.minecraft.client.audio.SoundRegistry;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -28,6 +31,7 @@ public class BWFRegistry {
 
 
     public static final Material logMaterial =  MaterialBinder.LOG_MATERIAL;
+    public static final Material plankMaterial = MaterialBinder.PLANK_MATERIAL;
 
     public static final Material ashMaterial = new MaterialLogic(MapColor.stoneColor).setReplaceable().setTranslucent().setRequiresTool().setNoPushMobility();
 
@@ -39,7 +43,8 @@ public class BWFRegistry {
     public static CampfireBlock largeCampfire;
     public static Block infernalEnchanter;
     public static Block ashCoverBlock;
-    public static Block workstump;
+    public static Block workStump;
+    public static Block blockLog;
     public enum ENUM_IDS
     {
         Nothing(), InfernalEnchanter(),Workstump,
@@ -54,8 +59,8 @@ public class BWFRegistry {
         largeCampfire = (CampfireBlock)GameRegistry.registerBlock(new CampfireBlock( 3).setLightLevel(0.875F), ItemBlock.class, "Campfirewithbigfire");
         GameRegistry.registerTileEntity(CampfireTileEntity.class, "bwf.fcBlockCampfire");
         ashCoverBlock = (AshGroundCoverBlock)GameRegistry.registerBlock(new AshGroundCoverBlock(), ItemBlock.class,"fcBlockAshGroundCover");
-        workstump = (WorkStumpBlock)GameRegistry.registerBlock(new WorkStumpBlock(), ItemBlock.class, "fcBlockWorkStump");
-
+        workStump = (WorkStumpBlock)GameRegistry.registerBlock(new WorkStumpBlock(), ItemBlock.class, "fcBlockWorkStump");
+        blockLog = (BlockLogCustom)GameRegistry.registerBlock(new BlockLogCustom(), ItemBlock.class, "fcBlockLog");
 
 
 

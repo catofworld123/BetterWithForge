@@ -1,5 +1,8 @@
 package mods.bwf.management;
 
+import mods.bwf.crafting.util.FurnaceBurnTime;
+import mods.bwf.util.BlockPos;
+import mods.bwf.util.Flammability;
 import mods.bwf.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
@@ -11,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public interface BTWBlockadd {
     default boolean isGroundCover() {
@@ -234,6 +238,149 @@ public interface BTWBlockadd {
     default boolean arechiselseffectiveon(World world, int i, int j, int k)
     {
         return arechiselseffectiveon();
+    }
+    default Block setAxesEffectiveOn() { return setAxesEffectiveOn(true); }
+    default Block setAxesEffectiveOn(boolean bEffective)
+    {
+
+        return ((Block)(Object)this);
+    }
+    default Block setChiselsEffectiveOn() { return setChiselsEffectiveOn(true); }
+    default Block setChiselsEffectiveOn(boolean bEffective)
+    {
+
+        return ((Block)(Object)this);
+    }
+    default Block setBuoyant() { return setBuoyancy(1F); }
+    default Block setNonBuoyant() { return setBuoyancy(-1F); }
+    default Block setNeutralBuoyant() { return setBuoyancy(0F); }
+    default float getBuoyancy(int iMetadata)
+    {
+        return -1F;
+    }
+    default Block setBuoyancy(float fBuoyancy)
+    {
+
+        return ((Block)(Object)this);
+    }
+    default Block setFireProperties(Block block, int iChanceToEncourageFire, int iAbilityToCatchFire)
+    {
+
+        Blocks.fire.setFireInfo(block, iChanceToEncourageFire, iChanceToEncourageFire);
+
+        return ((Block)(Object)this);
+    }
+
+    default Block setFireProperties(Block block, Flammability flammability)
+    {
+        return setFireProperties(block, flammability.chanceToEncourageFire,
+            flammability.abilityToCatchFire);
+    }
+    default  boolean shouldPlayStandardConvertSound(World world, int x, int y, int z) {
+        return true;
+    }
+    default  int rotateMetadataAroundYAxis(int iMetadata, boolean bReverse)
+    {
+        int iFacing = getFacing(iMetadata);
+
+        int iNewFacing = rotateFacingAroundY(iFacing, bReverse);
+
+        return setFacing(iMetadata, iNewFacing);
+    }
+    default int rotateFacingAroundY(int iFacing, boolean bReverse)
+    {
+        if ( bReverse )
+        {
+            return 0;
+        }
+
+        return 0;
+    }
+    default int setFacing(int iMetadata, int iFacing)
+    {
+        return iMetadata;
+    }
+
+    default void setFacing(World world, int i, int j, int k, int iFacing)
+    {
+        int iMetadata = world.getBlockMetadata( i, j, k );
+
+        int iNewMetadata = setFacing(iMetadata, iFacing);
+
+        if ( iNewMetadata != iMetadata )
+        {
+            world.setBlockMetadataWithNotify( i, j, k, iNewMetadata,2 );
+        }
+    }
+    default void onDestroyedByFire(World world, int i, int j, int k, int iFireAge, boolean bForcedFireSpread)
+    {
+        boolean trueTag = false;
+        BiomeGenBase biome = world.getBiomeGenForCoords( i, k );
+        if ( world.isRaining() && world.canBlockSeeTheSky( i, j, k ) &&
+            j >= world.getPrecipitationHeight( i, k )  )
+        {
+            trueTag = biome.canSpawnLightningBolt();
+        }
+
+        if ( bForcedFireSpread || ( world.rand.nextInt( iFireAge + 10 ) < 5 &&
+            !trueTag ) )
+        {
+            int iNewFireMetadata = iFireAge + world.rand.nextInt( 5 ) / 4;
+
+            if ( iNewFireMetadata > 15 )
+            {
+                iNewFireMetadata = 15;
+            }
+
+            world.setBlock( i, j, k, Blocks.fire, iNewFireMetadata,2 );
+        }
+        else
+        {
+            world.setBlock( i, j, k, Blocks.air );
+        }
+    }
+    default  boolean getCanBlockBeIncinerated(World world, int i, int j, int k)
+    {
+        Block block = world.getBlock(i,j,k);
+        Material blockMaterial = block.getMaterial();
+        return Blocks.fire.canBlockCatchFire( world, i, j, k ) || !blockMaterial.blocksMovement();
+    }
+    default int getFurnaceBurnTime(int iItemDamage)
+    {
+        return 0;
+    }
+    default  void setFurnaceBurnTime(int iBurnTime)
+    {
+
+    }
+    default  void setFurnaceBurnTime(FurnaceBurnTime burnTime)
+    {
+        setFurnaceBurnTime(burnTime.burnTime);
+    }
+    default boolean hasLargeCenterHardPointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing, boolean bIgnoreTransparency )
+    {
+        return blockAccess.getBlock( i, j, k ).isNormalCube();
+    }
+
+    default boolean hasLargeCenterHardPointToFacing(IBlockAccess blockAccess, int i, int j, int k, int iFacing )
+    {
+        return hasLargeCenterHardPointToFacing( blockAccess, i, j, k, iFacing, false );
+    }
+    default boolean hasWaterToSidesOrTop(World world, int i, int j, int k)
+    {
+        for ( int iFacing = 1; iFacing <= 5; iFacing++ )
+        {
+            BlockPos tempPos = new BlockPos( i, j, k, iFacing );
+
+            Block tempBlock = world.getBlock(tempPos.x, tempPos.y, tempPos.z);
+
+            if ( tempBlock != null && tempBlock.getMaterial() == Material.water )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

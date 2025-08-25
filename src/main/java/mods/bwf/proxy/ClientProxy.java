@@ -1,7 +1,8 @@
 package mods.bwf.proxy;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import mods.bwf.client.CampfireRenderer;
+import mods.bwf.client.RenderBlockCampfire;
+import mods.bwf.client.RenderBlockLog;
 import mods.bwf.client.RenderInfernalEnchanterBlock;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -14,6 +15,7 @@ public class ClientProxy extends CommonProxy {
     public static int renderCampfire;
     public static int renderBlockCampfire;
     public static int renderInfernalEnchanter;
+    public static int renderBlockLog;
     public static int renderVessel;
     public static ClientProxy instance;
 
@@ -27,9 +29,11 @@ public class ClientProxy extends CommonProxy {
     public void init() {
         super.init();
         renderBlockCampfire = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(renderBlockCampfire, new mods.bwf.client.RenderBlockCampfire());
+        RenderingRegistry.registerBlockHandler(renderBlockCampfire, new RenderBlockCampfire());
         renderInfernalEnchanter = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(renderInfernalEnchanter, new RenderInfernalEnchanterBlock());
+        renderBlockLog = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(renderBlockLog, new RenderBlockLog());
 
 
 

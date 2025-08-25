@@ -84,7 +84,7 @@ public class WorkstumpContainer extends Container
 
     public boolean canInteractWith(EntityPlayer player)
     {
-        return this.worldObj.getBlock(this.posX, this.posY, this.posZ) != BWFRegistry.workstump ? false : player.getDistanceSq((double)this.posX + 0.5D, (double)this.posY + 0.5D, (double)this.posZ + 0.5D) <= 64.0D;
+        return this.worldObj.getBlock(this.posX, this.posY, this.posZ) != BWFRegistry.workStump ? false : player.getDistanceSq((double)this.posX + 0.5D, (double)this.posY + 0.5D, (double)this.posZ + 0.5D) <= 64.0D;
     }
 
     /**
