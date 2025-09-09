@@ -1,6 +1,7 @@
 package mods.bwf.proxy;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import mods.bwf.client.AxleRenderer;
 import mods.bwf.client.RenderBlockCampfire;
 import mods.bwf.client.RenderBlockLog;
 import mods.bwf.client.RenderInfernalEnchanterBlock;
@@ -17,6 +18,7 @@ public class ClientProxy extends CommonProxy {
     public static int renderInfernalEnchanter;
     public static int renderBlockLog;
     public static int renderVessel;
+    public static int renderAxle;
     public static ClientProxy instance;
 
     @Override
@@ -34,6 +36,9 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerBlockHandler(renderInfernalEnchanter, new RenderInfernalEnchanterBlock());
         renderBlockLog = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(renderBlockLog, new RenderBlockLog());
+        renderAxle = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(renderAxle, new AxleRenderer());
+
 
 
 

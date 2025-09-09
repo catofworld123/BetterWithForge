@@ -45,9 +45,11 @@ public class BWFRegistry {
     public static Block ashCoverBlock;
     public static Block workStump;
     public static Block blockLog;
+    public static Block axle;
+    public static Block axlePowerSource;
     public enum ENUM_IDS
     {
-        Nothing(), InfernalEnchanter(),Workstump,
+        Nothing(), InfernalEnchanter(),Workstump(),
     }
 
     public static void init() {
@@ -61,7 +63,8 @@ public class BWFRegistry {
         ashCoverBlock = (AshGroundCoverBlock)GameRegistry.registerBlock(new AshGroundCoverBlock(), ItemBlock.class,"fcBlockAshGroundCover");
         workStump = (WorkStumpBlock)GameRegistry.registerBlock(new WorkStumpBlock(), ItemBlock.class, "fcBlockWorkStump");
         blockLog = (BlockLogCustom)GameRegistry.registerBlock(new BlockLogCustom(), ItemBlock.class, "fcBlockLog");
-
+        axle =  (AxleBlock)GameRegistry.registerBlock(new AxleBlock(),ItemBlock.class,"fcBlockAxle");
+        axlePowerSource = (AxlePowerSourceBlock)GameRegistry.registerBlock(new AxlePowerSourceBlock(),ItemBlock.class,"fcBlockAxlePowerSource");
 
 
 

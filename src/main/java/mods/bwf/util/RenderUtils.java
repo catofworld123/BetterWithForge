@@ -20,36 +20,29 @@ public class RenderUtils {
             renderBlocks.clearOverrideBlockTexture();
         }
     }
-    public static void setUVRotateBottom(int iValue) {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void setUVRotateBottom(int iValue, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateBottom = iValue;
     }
-    public static void setUVRotateEast(int iValue) {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void setUVRotateEast(int iValue, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateEast = iValue;
     }
 
-    public static void setUVRotateWest(int iValue) {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void setUVRotateWest(int iValue, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateWest = iValue;
     }
 
-    public static void setUVRotateSouth(int iValue) {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void setUVRotateSouth(int iValue, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateSouth = iValue;
     }
 
-    public static void setUVRotateNorth(int iValue) {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void setUVRotateNorth(int iValue, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateNorth = iValue;
     }
 
-    public static void setUVRotateTop(int iValue) {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void setUVRotateTop(int iValue, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateTop = iValue;
     }
-    public static void clearUVRotation() {
-        RenderBlocks renderBlocks = new RenderBlocks();
+    public static void clearUVRotation(RenderBlocks renderBlocks) {
         renderBlocks.uvRotateEast = 0;
         renderBlocks.uvRotateWest = 0;
         renderBlocks.uvRotateSouth = 0;
@@ -119,48 +112,48 @@ public class RenderUtils {
     public static void renderBlockWithTextureRotation(RenderBlocks renderBlocks, Block block, int i, int j, int k, int iBlockFacing) {
         RenderUtils.setTextureRotationBasedOnBlockFacing(renderBlocks, iBlockFacing);
         renderBlocks.renderStandardBlock(block, i, j, k);
-        clearUVRotation();
+        clearUVRotation(renderBlocks);
     }
 
     public static void setTextureRotationBasedOnBlockFacing(RenderBlocks renderBlocks, int iBlockFacing) {
         switch (iBlockFacing) {
             case 0: {
-                setUVRotateEast(3);
-                setUVRotateWest(3);
-                setUVRotateSouth(3);
-                setUVRotateNorth(3);
+                setUVRotateEast(3,renderBlocks);
+                setUVRotateWest(3,renderBlocks);
+                setUVRotateSouth(3,renderBlocks);
+                setUVRotateNorth(3,renderBlocks);
                 break;
             }
             case 2: {
-                setUVRotateSouth(1);
-                setUVRotateNorth(2);
-                setUVRotateEast(3);
-                setUVRotateWest(3);
+                setUVRotateSouth(1,renderBlocks);
+                setUVRotateNorth(2,renderBlocks);
+                setUVRotateEast(3,renderBlocks);
+                setUVRotateWest(3,renderBlocks);
                 break;
             }
             case 3: {
-                setUVRotateSouth(2);
-                setUVRotateNorth(1);
-                setUVRotateTop(3);
-                setUVRotateBottom(3);
+                setUVRotateSouth(2,renderBlocks);
+                setUVRotateNorth(1,renderBlocks);
+                setUVRotateTop(3,renderBlocks);
+                setUVRotateBottom(3,renderBlocks);
                 break;
             }
             case 4: {
-                setUVRotateEast(1);
-                setUVRotateWest(2);
-                setUVRotateTop(2);
-                setUVRotateBottom(1);
-                setUVRotateNorth(2);
-                setUVRotateSouth(1);
+                setUVRotateEast(1,renderBlocks);
+                setUVRotateWest(2,renderBlocks);
+                setUVRotateTop(2,renderBlocks);
+                setUVRotateBottom(1,renderBlocks);
+                setUVRotateNorth(2,renderBlocks);
+                setUVRotateSouth(1,renderBlocks);
                 break;
             }
             case 5: {
-                setUVRotateEast(2);
-                setUVRotateWest(1);
-                setUVRotateTop(1);
-                setUVRotateBottom(2);
-                setUVRotateSouth(1);
-                setUVRotateNorth(2);
+                setUVRotateEast(2,renderBlocks);
+                setUVRotateWest(1,renderBlocks);
+                setUVRotateTop(1,renderBlocks);
+                setUVRotateBottom(2,renderBlocks);
+                setUVRotateSouth(1,renderBlocks);
+                setUVRotateNorth(2,renderBlocks);
             }
         }
     }
@@ -169,7 +162,7 @@ public class RenderUtils {
         RenderUtils.setRenderBoundsToBlockFacing(renderBlocks, iFacing, minX, minY, minZ, maxX, maxY, maxZ);
         RenderUtils.setTextureRotationBasedOnBlockFacing(renderBlocks, iFacing);
         RenderUtils.renderBlockWithTextureRotation(renderBlocks, block, i, j, k, iFacing);
-        clearUVRotation();
+        clearUVRotation(renderBlocks);
     }
 
     public static void renderMovingBlockWithTexture(RenderBlocks renderBlocks, Block block, World world, int i, int j, int k, IIcon texture) {
