@@ -6,7 +6,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import mods.bwf.proxy.CommonProxy;
 
 import static mods.bwf.BWFConstants.MODID;
@@ -16,9 +15,7 @@ import static mods.bwf.BWFConstants.MODNAME;
 @Mod(modid = MODID, name = MODNAME, version = "${version}")
 public class BetterWithForge {
 
-
-
-
+    public static CommonProxy proxy;
 
     @SidedProxy(clientSide = "mods.bwf.proxy.ClientProxy", serverSide = "mods.bwf.proxy.CommonProxy")
     public static CommonProxy PROXY;
@@ -39,17 +36,15 @@ public class BetterWithForge {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) {
-
-        PROXY.init();
         BWFRegistry.init();
-
+        PROXY.init();
     }
 
 
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
-        PROXY.postInit();
+        PROXY.postInit();;
     }
 
     @Mod.EventHandler

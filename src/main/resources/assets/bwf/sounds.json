@@ -1,0 +1,372 @@
+{
+
+  "possession_complete": {
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/possession_complete"
+    ]
+  },
+
+  "scream1":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/scream1"
+    ]
+  },
+  "scream2":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/scream2"
+    ]
+  },
+  "scream3":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/scream3"
+    ]
+  },
+  "scream4":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/scream4"
+    ]
+  },
+  "scream5":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/scream5"
+    ]
+  },
+
+  "spread1":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread1"
+    ]
+  },
+  "spread2":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread2"
+    ]
+  },
+  "spread3":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread3"
+    ]
+  },
+  "spread4":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread4"
+    ]
+  },
+  "spread5":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread5"
+    ]
+  },
+  "spread6":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread6"
+    ]
+  },
+  "spread7":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread7"
+    ]
+  },
+  "spread8":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread8"
+    ]
+  },
+  "spread9":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread9"
+    ]
+  },
+  "spread10":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread10"
+    ]
+  },
+  "spread11":{
+    "category": "hostile",
+    "sounds": [
+      "misc/soul/spread11"
+    ]
+  },
+
+  "bite1":{
+    "category": "ambient",
+    "sounds": [
+      "misc/gloom/bite1"
+    ]
+  },
+  "bite2":{
+    "category": "hostile",
+    "sounds": [
+      "misc/gloom/bite2"
+    ]
+  },
+
+  "stone1":{
+    "category": "block",
+    "sounds": [
+      "item/chisel/stone1"
+    ]
+  },
+  "stone2":{
+    "category": "block",
+    "sounds": [
+      "item/chisel/stone2"
+    ]
+  },
+
+  "wood1":{
+    "category": "block",
+    "sounds": [
+      "item/chisel/wood1"
+    ]
+  },
+  "wood2":{
+    "category": "block",
+    "sounds": [
+      "item/chisel/wood2"
+    ]
+  },
+  "wood3":{
+    "category": "block",
+    "sounds": [
+      "item/chisel/wood3"
+    ]
+  },
+  "wood4":{
+    "category": "block",
+    "sounds": [
+      "item/chisel/wood4"
+    ]
+  },
+
+  "till1":{
+    "category": "block",
+    "sounds": [
+      "item/hoe/till1"
+    ]
+  },
+  "till2":{
+    "category": "block",
+    "sounds": [
+      "item/hoe/till2"
+    ]
+  },
+  "till3":{
+    "category": "block",
+    "sounds": [
+      "item/hoe/till3"
+    ]
+  },
+  "till4":{
+    "category": "block",
+    "sounds": [
+      "item/hoe/till4"
+    ]
+  },
+
+  "witch_death1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/death1"
+    ]
+  },
+  "witch_death2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/death2"
+    ]
+  },
+  "witch_death3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/death3"
+    ]
+  },
+
+  "witch_drink1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/drink1"
+    ]
+  },
+  "witch_drink2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/drink2"
+    ]
+  },
+  "witch_drink3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/drink3"
+    ]
+  },
+  "witch_drink5":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/drink4"
+    ]
+  },
+
+  "witch_idle1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/idle1"
+    ]
+  },
+  "witch_idle2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/idle2"
+    ]
+  },
+  "witch_idle3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/idle3"
+    ]
+  },
+  "witch_idle4":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/idle4"
+    ]
+  },
+  "witch_idle5":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/idle5"
+    ]
+  },
+
+  "witch_throw1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/throw1"
+    ]
+  },
+  "witch_throw2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/throw2"
+    ]
+  },
+  "witch_throw3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/witch/throw3"
+    ]
+  },
+
+  "priest_infuse1":{
+    "category": "neutral",
+    "sounds": [
+      "entity/villager/priest_infuse1"
+    ]
+  },
+  "priest_infuse2":{
+    "category": "neutral",
+    "sounds": [
+      "entity/villager/priest_infuse2"
+    ]
+  },
+  "priest_level":{
+    "category": "neutral",
+    "sounds": [
+      "entity/villager/priest_level"
+    ]
+  },
+
+  "squid_death1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/death1"
+    ]
+  },
+  "squid_death2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/death2"
+    ]
+  },
+  "squid_death3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/death3"
+    ]
+  },
+
+  "squid_hurt1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/hurt1"
+    ]
+  },
+  "squid_hurt2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/hurt2"
+    ]
+  },
+  "squid_hurt3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/hurt3"
+    ]
+  },
+  "squid_hurt4":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/hurt4"
+    ]
+  },
+  "squid_idle1":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/idle1"
+    ]
+  },
+  "squid_idle2":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/idle2"
+    ]
+  },
+  "squid_idle3":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/idle3"
+    ]
+  },
+  "squid_idle4":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/idle4"
+    ]
+  },
+  "squid_idle5":{
+    "category": "hostile",
+    "sounds": [
+      "entity/squid/idle5"
+    ]
+  },
+
+}
+

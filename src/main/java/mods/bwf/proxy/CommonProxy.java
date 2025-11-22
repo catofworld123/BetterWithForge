@@ -1,29 +1,25 @@
 package mods.bwf.proxy;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import mods.bwf.BWFConstants;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public abstract class CommonProxy implements Proxy {
+    public static int simpleTileRenderer = 0;
+    public static int axleRenderer = 0;
+    public static int crankRenderer = 0;
+    public static int paneRenderer = 0;
+    public static int potteryRenderer = 0;
+    public static int planterRenderer = 0;
+    public static int anchorRenderer = 0;
+    public static int sawRenderer = 0;
     public static final boolean isMTPresent = Loader.isModLoaded("MineTweaker3");
 
 
 
     @Override
     public void preInit() {
-
 
 
     }
